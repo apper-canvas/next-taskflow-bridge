@@ -22,9 +22,9 @@ const Tasks = () => {
     category: '',
     priority: '',
     status: ''
-  });
+});
   const [selectedTasks, setSelectedTasks] = useState([]);
-
+  const [showRecurringModal, setShowRecurringModal] = useState(false);
   useEffect(() => {
     loadInitialData();
   }, []);
@@ -192,7 +192,7 @@ const Tasks = () => {
       {/* Bulk Actions */}
       <BulkActions
         selectedTasks={selectedTasks}
-        onTasksUpdated={handleBulkTasksUpdated}
+onTasksUpdated={handleBulkTasksUpdated}
         onClearSelection={() => setSelectedTasks([])}
       />
     </motion.div>

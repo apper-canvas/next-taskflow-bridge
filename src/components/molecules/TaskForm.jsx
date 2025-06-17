@@ -7,8 +7,8 @@ import Textarea from '@/components/atoms/Textarea';
 import Select from '@/components/atoms/Select';
 import Button from '@/components/atoms/Button';
 import ApperIcon from '@/components/ApperIcon';
+import RecurringTaskModal from '@/components/molecules/RecurringTaskModal';
 import { taskService } from '@/services';
-
 const TaskForm = ({ categories = [], onTaskCreated, onCancel }) => {
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -17,9 +17,10 @@ const TaskForm = ({ categories = [], onTaskCreated, onCancel }) => {
     priority: 'medium',
     categoryId: '',
     dueDate: ''
-  });
+});
   const [errors, setErrors] = useState({});
-
+  const [showRecurringModal, setShowRecurringModal] = useState(false);
+  const [isCreatingRecurring, setIsCreatingRecurring] = useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
     
@@ -73,13 +74,50 @@ const TaskForm = ({ categories = [], onTaskCreated, onCancel }) => {
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: '' }));
     }
+}
+  };
+
+  const handleRecurringTaskCreate = async (recurrenceOptions) => {
+    setIsCreatingRecurring(true);
+    setShowRecurringModal(false);
+
+    try {
+      const taskData = {
+        ...formData,
+        title: formData.title.trim(),
+        description: formData.description.trim(),
+        dueDate: formData.dueDate ? new Date(formData.dueDate).toISOString() : null,
+        categoryId: formData.categoryId || null
+      };
+
+      const result = await taskService.createRecurring(taskData, recurrenceOptions);
+      
+      // Notify parent of all created tasks (master + instances)
+      onTaskCreated(result.masterTask);
+      result.instances.forEach(instance => onTaskCreated(instance));
+      
+      // Reset form
+      setFormData({
+        title: '',
+        description: '',
+        priority: 'medium',
+        categoryId: '',
+        dueDate: ''
+      });
+      
+      toast.success(`Recurring task created! Generated ${result.instances.length} task instances. 🔄`);
+    } catch (error) {
+      toast.error('Failed to create recurring task');
+      console.error('Create recurring task error:', error);
+    } finally {
+      setIsCreatingRecurring(false);
+    }
   };
 
   const priorityOptions = [
     { value: 'low', label: 'Low Priority' },
     { value: 'medium', label: 'Medium Priority' },
     { value: 'high', label: 'High Priority' }
-  ];
 
   const categoryOptions = categories.map(cat => ({
     value: cat.Id.toString(),
@@ -158,28 +196,49 @@ const TaskForm = ({ categories = [], onTaskCreated, onCancel }) => {
           icon="Calendar"
         />
 
-        <div className="flex justify-end space-x-3 pt-4">
-          {onCancel && (
-            <Button
-              type="button"
-              variant="ghost"
-              onClick={onCancel}
-              disabled={loading}
-            >
-              Cancel
-            </Button>
-          )}
-          
+<div className="flex justify-between items-center pt-4">
           <Button
-            type="submit"
-            loading={loading}
-            icon="Plus"
-            className="min-w-[120px]"
+            type="button"
+            variant="outline"
+            icon="Repeat"
+            onClick={() => setShowRecurringModal(true)}
+            disabled={loading || isCreatingRecurring || !formData.title.trim()}
+            className="text-sm"
           >
-            {loading ? 'Creating...' : 'Create Task'}
+            Make Recurring
           </Button>
+
+          <div className="flex space-x-3">
+            {onCancel && (
+              <Button
+                type="button"
+                variant="ghost"
+                onClick={onCancel}
+                disabled={loading || isCreatingRecurring}
+              >
+                Cancel
+              </Button>
+            )}
+            
+            <Button
+              type="submit"
+              loading={loading || isCreatingRecurring}
+              icon="Plus"
+              className="min-w-[120px]"
+            >
+              {loading || isCreatingRecurring ? 'Creating...' : 'Create Task'}
+            </Button>
+          </div>
         </div>
       </form>
+
+      {/* Recurring Task Modal */}
+      <RecurringTaskModal
+        isOpen={showRecurringModal}
+        onClose={() => setShowRecurringModal(false)}
+        onConfirm={handleRecurringTaskCreate}
+        taskData={formData}
+      />
     </motion.div>
   );
 };

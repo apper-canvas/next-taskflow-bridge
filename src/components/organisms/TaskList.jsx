@@ -33,7 +33,7 @@ const TaskList = ({
         }
       }
 
-      // Category filter
+// Category filter
       if (filters.category && task.categoryId !== filters.category) {
         return false;
       }

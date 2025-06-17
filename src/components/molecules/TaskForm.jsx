@@ -39,12 +39,12 @@ const TaskForm = ({ categories = [], onTaskCreated, onCancel }) => {
     setErrors({});
 
     try {
-      const taskData = {
-        ...formData,
+const taskData = {
         title: formData.title.trim(),
         description: formData.description.trim(),
-        dueDate: formData.dueDate ? new Date(formData.dueDate).toISOString() : null,
-        categoryId: formData.categoryId || null
+        priority: formData.priority,
+        categoryId: formData.categoryId || null,
+        dueDate: formData.dueDate ? new Date(formData.dueDate).toISOString() : null
       };
 
       const newTask = await taskService.create(taskData);
@@ -82,12 +82,12 @@ const TaskForm = ({ categories = [], onTaskCreated, onCancel }) => {
     setShowRecurringModal(false);
 
     try {
-      const taskData = {
-        ...formData,
+const taskData = {
         title: formData.title.trim(),
         description: formData.description.trim(),
-        dueDate: formData.dueDate ? new Date(formData.dueDate).toISOString() : null,
-        categoryId: formData.categoryId || null
+        priority: formData.priority,
+        categoryId: formData.categoryId || null,
+        dueDate: formData.dueDate ? new Date(formData.dueDate).toISOString() : null
       };
 
       const result = await taskService.createRecurring(taskData, recurrenceOptions);

@@ -1,0 +1,74 @@
+[
+  {
+    "Id": 1,
+    "title": "Review quarterly marketing reports",
+    "description": "Analyze Q3 performance metrics and prepare insights for the team meeting. Focus on conversion rates and customer acquisition costs.",
+    "priority": "high",
+    "categoryId": "1",
+    "dueDate": "1/15/2024 5:00:00 PM.000Z",
+    "completed": false,
+    "completedAt": null,
+    "createdAt": "2024-01-12T09:00:00.000Z",
+    "updatedAt": "2024-01-12T09:00:00.000Z"
+  },
+  {
+    "Id": 2,
+    "title": "Complete project proposal for client",
+    "description": "Draft comprehensive proposal including timeline, deliverables, and budget breakdown for the new web application project.",
+    "priority": "high",
+    "categoryId": "1",
+    "dueDate": "2024-01-14T15:00:00.000Z",
+    "completed": true,
+    "completedAt": "2024-01-13T14:30:00.000Z",
+    "createdAt": "2024-01-10T11:00:00.000Z",
+    "updatedAt": "2024-01-13T14:30:00.000Z"
+  },
+  {
+    "Id": 3,
+    "title": "Schedule dentist appointment",
+    "description": "Book routine cleaning and checkup for next month. Prefer morning slots if available.",
+    "priority": "low",
+    "categoryId": "2",
+    "dueDate": "2024-01-20T12:00:00.000Z",
+    "completed": false,
+    "completedAt": null,
+    "createdAt": "2024-01-11T16:00:00.000Z",
+    "updatedAt": "2024-01-11T16:00:00.000Z"
+  },
+  {
+    "Id": 4,
+    "title": "Prepare presentation for stakeholder meeting",
+    "description": "Create slides covering project progress, upcoming milestones, and resource requirements. Include visual charts and timeline.",
+    "priority": "medium",
+    "categoryId": "1",
+    "dueDate": "2024-01-16T10:00:00.000Z",
+    "completed": false,
+    "completedAt": null,
+    "createdAt": "2024-01-12T13:00:00.000Z",
+    "updatedAt": "2024-01-12T13:00:00.000Z"
+  },
+  {
+    "Id": 5,
+    "title": "Research new productivity tools",
+    "description": "Evaluate task management and collaboration software options for the team. Compare features, pricing, and integration capabilities.",
+    "priority": "medium",
+    "categoryId": "3",
+    "dueDate": "2024-01-18T18:00:00.000Z",
+    "completed": false,
+    "completedAt": null,
+    "createdAt": "2024-01-13T10:00:00.000Z",
+    "updatedAt": "2024-01-13T10:00:00.000Z"
+  },
+  {
+    "Id": 6,
+    "title": "Update portfolio website",
+    "description": "Add recent projects, refresh design elements, and optimize for mobile devices. Update contact information and testimonials.",
+    "priority": "low",
+    "categoryId": "3",
+    "dueDate": "2024-01-25T23:59:00.000Z",
+    "completed": false,
+    "completedAt": null,
+    "createdAt": "2024-01-11T12:00:00.000Z",
+    "updatedAt": "2024-01-11T12:00:00.000Z"
+  }
+]
